@@ -14,10 +14,15 @@ class BooksApp extends React.Component {
 
   moveBook = (book, prevShelf, shelf) => {
     BooksAPI.update(book, shelf).then((_books) => {
-      this.setState(prevState => ({
-        [prevShelf]: prevState[prevShelf].filter(b => (b.id !== book.id)),
-        [shelf]: prevState[shelf].concat([book])
-      }))
+      if (shelf === 'none')
+        this.setState(prevState => ({
+          [prevShelf]: prevState[prevShelf].filter(b => (b.id !== book.id)),
+        }))
+      else
+        this.setState(prevState => ({
+          [prevShelf]: prevState[prevShelf].filter(b => (b.id !== book.id)),
+          [shelf]: prevState[shelf].concat([book])
+        }))
     })
   }
 
